@@ -9,3 +9,8 @@ http://localhost:8000
 
 docker ps
 docker stop <ID>
+
+
+Jinhja templating
+* base.html - a generic reusable template for the whole site.
+* index.html - extends base.html defining the actual content to show
