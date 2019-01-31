@@ -12,7 +12,10 @@ pip install -r requirements.txt
 * flask-wtf - Flask wrapper around [WTForms](https://wtforms.readthedocs.io/) package for working with HTML forms.
 * pyjwt - JSON web tokens - used for secure token in password reset links
 
-## Setup
+...plus more...
+
+## Running Locally
+### Initial Setup
 Create the database using flask shell that gives a python shell with the correct context.
 ```
 flask db init
@@ -39,8 +42,6 @@ Start SMTP debugging server to test sending of emails or set corrent environment
 python -m smtpd -n -c DebuggingServer localhost:8025
 ```
 
-## Running
-
 ### Command Line
 
 ```
@@ -52,12 +53,24 @@ python -m smtpd -n -c DebuggingServer localhost:8025
 flask run
 ```
 
+or
+
+```
+python app.py
+```
+
+### Other 
+
+Verify structure and contents of the project
+
 ```
 flask shell
 >>> app.url_map
 >>> app.static_folder
 >>> app.template_folder
 ```
+
+## Docker
 
 ### Docker
 docker build -t testwebapp:latest .

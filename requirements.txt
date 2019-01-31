@@ -1,9 +1,17 @@
+elasticsearch
 flask
+flask-babel
 flask-bootstrap
+flask_httpauth
 flask-login
 flask-mail
 flask_migrate
 flask-moment
 flask-sqlalchemy
 flask-wtf
+guess_language-spirit
 pyjwt
+python-dotenv
+redis
+requests
+rq

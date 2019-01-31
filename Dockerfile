@@ -2,31 +2,32 @@
 FROM python:3.6-alpine
 
 # Add user (we don't want to use root)
-RUN adduser -D webtestuser
+RUN adduser -D testwebappuser
 
 # Set default directory for remaining commands
-WORKDIR /home/webtestuser
+WORKDIR /home/testwebappuser
+
+# Python environment setup
+COPY requirements.txt .
+RUN python -m venv venv
+RUN venv/bin/pip install -r requirements.txt
+RUN venv/bin/pip install gunicorn pymysql
 
 # Copy / run commands to setup the container
-
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY boot.sh ./
-RUN chmod +x boot.sh
-
-# Copy / run commands to setup the app
-COPY testwebapp main.py boot.sh ./
-RUN chmod +x boot.sh
+COPY testwebapp testwebapp
+COPY migrations migrations
+COPY app.py config.py boot.sh ./
+RUN chmod a+x boot.sh
 
 # Set flask entry point as an environment variable
 ENV FLASK_APP main.py
 
-RUN chown -R webtestuser:webtestuser ./
-USER webtestuser
+RUN chown -R testwebappuser:testwebappuser ./
+USER testwebappuser
 
 # Expose on port 5000 (flask default port)
 EXPOSE 5000
 
 # Run startup script
-CMD ["python", "main.py"]
+# CMD ["python", "main.py"]
+ENTRYPOINT ["./boot.sh"]
