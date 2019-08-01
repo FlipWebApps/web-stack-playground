@@ -15,7 +15,8 @@ while true; do
 done
 
 # Add any translations
-flask translate compile
+# this errors!!!
+#flask translate compile
 
 # Run the server with gunicorn
 # Note the exec that precedes the gunicorn command. In a shell script, exec triggers the process running the script
@@ -27,4 +28,7 @@ flask translate compile
 # Anything that the container writes to stdout or stderr will be captured and stored as logs for the container so
 # the --access-logfile and --error-logfile are both configured with a -, which sends the log to standard output so
 # that they are stored as logs by Docker.
-exec gunicorn -b :5000 --access-logfile - --error-logfile - microblog:app
+
+# python app.py
+# NOTE: for app:app - the first part is the name of the module / file entry point (app.py) the last is the object (app)
+exec gunicorn -b :5000 --access-logfile - --error-logfile - app:app

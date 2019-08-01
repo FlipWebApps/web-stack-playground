@@ -20,7 +20,7 @@ COPY app.py config.py boot.sh ./
 RUN chmod a+x boot.sh
 
 # Set flask entry point as an environment variable
-ENV FLASK_APP main.py
+ENV FLASK_APP app.py
 
 RUN chown -R testwebappuser:testwebappuser ./
 USER testwebappuser
@@ -29,5 +29,5 @@ USER testwebappuser
 EXPOSE 5000
 
 # Run startup script
-# CMD ["python", "main.py"]
+# CMD ["python", "app.py"]
 ENTRYPOINT ["./boot.sh"]
