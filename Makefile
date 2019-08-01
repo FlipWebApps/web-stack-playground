@@ -4,7 +4,8 @@
 APP_NAME=testwebapp
 
 # Port to run the container
-PORT=5000
+PORT_CONTAINER=5000
+PORT_HOST=8000
 
 
 # HELP
@@ -26,10 +27,12 @@ build: ## Build the container
 build-nc: ## Build the container without caching
 	docker build --no-cache -t $(APP_NAME) .
 
-run: ## Run container on port configured in `config.env`
-	docker run -i -t --rm -p=$(PORT):$(PORT) --name="$(APP_NAME)" $(APP_NAME)
-	#docker run -i -t --rm --env-file=./config.env -p=$(PORT):$(PORT) --name="$(APP_NAME)" $(APP_NAME)
+run: ## Run container in the background
+	docker run -d --rm -p=$(PORT_HOST):$(PORT_CONTAINER) --name="$(APP_NAME)" $(APP_NAME)
 
+run-fg: ## Run container in the foreground
+	docker run -i -t --rm -p=$(PORT_HOST):$(PORT_CONTAINER) --name="$(APP_NAME)" $(APP_NAME)
+	#docker run -i -t --rm --env-file=./config.env -p=$(PORT_HOST):$(PORT_CONTAINER) --name="$(APP_NAME)" $(APP_NAME)
 
 up: build run ## Run container on port configured in `config.env` (Alias to run)
 
